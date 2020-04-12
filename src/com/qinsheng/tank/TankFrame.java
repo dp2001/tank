@@ -66,9 +66,6 @@ public class TankFrame extends Frame {
             }
 
             setMainTankDir();
-
-//            x += 200;
-//            repaint();
         }
 
         @Override
@@ -96,10 +93,10 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
-            if(bL) dir = Dir.LEFT;
-            if(bD) dir = Dir.DOWN;
-            if(bR) dir = Dir.RIGHT;
-            if(bU) dir = Dir.UP;
+            if(bL) myTank.setDir(Dir.LEFT);
+            if(bD) myTank.setDir(Dir.DOWN);
+            if(bR) myTank.setDir(Dir.RIGHT);
+            if(bU) myTank.setDir(Dir.UP);
         }
     }
 

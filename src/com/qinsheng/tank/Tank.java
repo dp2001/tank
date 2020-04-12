@@ -11,32 +11,12 @@ public class Tank {
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 10;
 
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
     public Dir getDir() {
         return dir;
     }
 
     public void setDir(Dir dir) {
         this.dir = dir;
-    }
-
-    public static int getSPEED() {
-        return SPEED;
     }
 
     public Tank(int x, int y, Dir dir) {
