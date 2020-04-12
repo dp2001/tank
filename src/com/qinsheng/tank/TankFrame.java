@@ -1,18 +1,22 @@
 package com.qinsheng.tank;
 
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by qinsheng on 2020/4/11.
  */
 public class TankFrame extends Frame {
 
-    Tank myTank = new Tank(200, 200, Dir.DOWN);
-    Bullet bullet = new Bullet(200, 200, Dir.DOWN);
+    Tank myTank = new Tank(200, 200, Dir.DOWN, this);
+    List<Bullet> bulletList = new ArrayList<>();
+    Bullet bullet = new Bullet(200, 200, Dir.DOWN, this);
 
     static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
@@ -49,9 +53,22 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics graphics) {
+        Color c = graphics.getColor();
+        graphics.setColor(Color.WHITE);
+        graphics.drawString("子弹的数量" + bulletList.size(), 10, 60);
+        graphics.setColor(c);
+
 
         myTank.paint(graphics);
-        bullet.paint(graphics);
+
+//        for(Bullet bullet : bulletList) {
+//            bullet.paint(graphics);
+//        }
+
+        for(int i = 0; i < bulletList.size(); i++) {
+            bulletList.get(i).paint(graphics);
+        }
+
 
     }
 
@@ -102,6 +119,10 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_DOWN:
                     bD = false;
+                    break;
+
+                case KeyEvent.VK_CONTROL:
+                    myTank.fire();
                     break;
 
                 default:
