@@ -13,7 +13,6 @@ public class Explode {
     private int x, y;
 
     TankFrame tankFrame = null;
-    private boolean living = true;
 
     private int step = 0;
 
@@ -30,7 +29,7 @@ public class Explode {
 
         graphics.drawImage(ResourceManager.explodes[step++], x, y, null);
         if(step >= ResourceManager.explodes.length){
-            step = 0;
+            tankFrame.explodes.remove(this);
         }
     }
 }

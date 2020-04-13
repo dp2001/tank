@@ -17,9 +17,9 @@ public class TankFrame extends Frame {
     Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD, this);
     List<Bullet> bulletList = new ArrayList<>();
     List<Tank> tankList = new ArrayList<>();
-    Explode explode = new Explode(100, 100, this);
+    List<Explode> explodes = new ArrayList<>();
 
-    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+    static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -58,16 +58,11 @@ public class TankFrame extends Frame {
         graphics.setColor(Color.WHITE);
         graphics.drawString("子弹的数量" + bulletList.size(), 10, 60);
         graphics.drawString("敌人的数量" + tankList.size(), 10, 80);
+        graphics.drawString("爆炸的数量" + explodes.size(), 10, 100);
         graphics.setColor(c);
 
 
         myTank.paint(graphics);
-
-        explode.paint(graphics);
-
-//        for(Bullet bullet : bulletList) {
-//            bullet.paint(graphics);
-//        }
 
         for(int i = 0; i < bulletList.size(); i++) {
             bulletList.get(i).paint(graphics);
@@ -75,6 +70,10 @@ public class TankFrame extends Frame {
 
         for(int i = 0; i < tankList.size(); i++) {
             tankList.get(i).paint(graphics);
+        }
+
+        for(int i = 0; i < explodes.size(); i++) {
+            explodes.get(i).paint(graphics);
         }
 
         for(int i = 0; i < bulletList.size(); i++) {
