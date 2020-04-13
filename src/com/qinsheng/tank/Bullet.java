@@ -24,15 +24,25 @@ public class Bullet {
     }
 
 
-    public void paint(Graphics g) {
+    public void paint(Graphics graphics) {
         if(!live) {
             tankFrame.bulletList.remove(this);
         }
-        Color c = g.getColor();
 
-        g.setColor(Color.RED);
-        g.fillOval(x, y, WIDTH, HEIGHT);
-        g.setColor(c);
+        switch (dir) {
+            case LEFT:
+                graphics.drawImage(ResourceManager.bulletL, x, y, null);
+                break;
+            case RIGHT:
+                graphics.drawImage(ResourceManager.bulletR, x, y, null);
+                break;
+            case DOWN:
+                graphics.drawImage(ResourceManager.bulletD, x, y, null);
+                break;
+            case UP:
+                graphics.drawImage(ResourceManager.bulletU, x, y, null);
+                break;
+        }
 
         move();
     }
