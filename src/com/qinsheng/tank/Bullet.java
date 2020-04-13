@@ -9,18 +9,22 @@ import java.awt.*;
  */
 public class Bullet {
 
-    private static final int SPEED = 10;
-
+    //子弹的宽度和高度
     public static int WIDTH = ResourceManager.bulletD.getWidth();
     public static int HEIGHT = ResourceManager.bulletD.getHeight();
 
+    //子弹坐标
     private int x, y;
+    //子弹方向
     private Dir dir;
+    //子弹是否活着
+    private boolean living = true;
+    //子弹速度
+    private static final int SPEED = 10;
+    //敌方子弹还是我方子弹
     private Group group = Group.BAD;
 
     TankFrame tankFrame = null;
-
-    private boolean living = true;
 
     public Group getGroup() {
         return group;
@@ -30,16 +34,16 @@ public class Bullet {
         this.group = group;
     }
 
+    //构造方法
     public Bullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
-
         this.dir = dir;
         this.group = group;
         this.tankFrame = tankFrame;
     }
 
-
+    //显示子弹主方法
     public void paint(Graphics graphics) {
         if(!living) {
             tankFrame.bulletList.remove(this);
@@ -63,6 +67,7 @@ public class Bullet {
         move();
     }
 
+    //子弹移动
     private void move(){
         switch (dir) {
             case UP:
@@ -79,13 +84,16 @@ public class Bullet {
                 break;
         }
 
+        //当子弹飞出界外，标记为死亡
         if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
     }
 
+    //死亡
     private void die() {
         this.living = false;
     }
 
+    //碰撞方法，判断是否和坦克相撞，相撞同阵营坦克，不做处理。
     public void collideWith(Tank tank) {
         if(this.group == tank.getGroup()) return;
 

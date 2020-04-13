@@ -13,6 +13,7 @@ public class ResourceManager {
     public static BufferedImage bulletL, bulletU, bulletR, bulletD;
     public static BufferedImage[] explodes = new BufferedImage[16];
 
+    //加载图片
     static {
         try {
             tankL = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream("images/tankL.gif"));

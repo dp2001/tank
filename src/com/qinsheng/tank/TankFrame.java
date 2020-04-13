@@ -14,13 +14,19 @@ import java.util.ArrayList;
  */
 public class TankFrame extends Frame {
 
+    //我方坦克
     Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD, this);
+    //子弹
     List<Bullet> bulletList = new ArrayList<>();
+    //敌方坦克
     List<Tank> tankList = new ArrayList<>();
+    //爆炸
     List<Explode> explodes = new ArrayList<>();
 
+    //设置游戏界面大小
     static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 
+    //构造方法，设置界面属性，以及按键事件
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
         setResizable(false);
@@ -37,6 +43,7 @@ public class TankFrame extends Frame {
         });
     }
 
+    //清除闪烁
     Image offScreenImage = null;
     @Override
     public void update(Graphics g){
@@ -52,6 +59,7 @@ public class TankFrame extends Frame {
         g.drawImage(offScreenImage, 0, 0, null);
     }
 
+    //界面显示主要方法
     @Override
     public void paint(Graphics graphics) {
         Color c = graphics.getColor();
@@ -61,21 +69,25 @@ public class TankFrame extends Frame {
         graphics.drawString("爆炸的数量" + explodes.size(), 10, 100);
         graphics.setColor(c);
 
-
+        //显示我方坦克
         myTank.paint(graphics);
 
+        //显示所有子弹
         for(int i = 0; i < bulletList.size(); i++) {
             bulletList.get(i).paint(graphics);
         }
 
+        //显示所有敌方坦克
         for(int i = 0; i < tankList.size(); i++) {
             tankList.get(i).paint(graphics);
         }
 
+        //显示所有爆炸现象
         for(int i = 0; i < explodes.size(); i++) {
             explodes.get(i).paint(graphics);
         }
 
+        //判断所有子弹和敌方坦克是否相撞
         for(int i = 0; i < bulletList.size(); i++) {
             for(int j = 0; j < tankList.size(); j++) {
                 bulletList.get(i).collideWith(tankList.get(j));
@@ -84,6 +96,7 @@ public class TankFrame extends Frame {
 
     }
 
+    //内部类，处理按键事件
     class MyKeyListener extends KeyAdapter {
 
         boolean bL = false;
