@@ -1,6 +1,7 @@
 package com.qinsheng.tank;
 
 import java.awt.*;
+import java.util.Random;
 
 /**
  * Created by qinsheng on 2020/4/12.
@@ -9,13 +10,16 @@ public class Tank {
 
     private int x, y;
     private Dir dir = Dir.DOWN;
-    private static final int SPEED = 4;
+    private static final int SPEED = 1;
     private boolean living = true;
+    private Group group = Group.BAD;
 
     public static int WIDTH = ResourceManager.tankD.getWidth();
     public static int HEIGHT = ResourceManager.tankD.getHeight();
 
-    private boolean moving = false;
+    private Random random = new Random();
+
+    private boolean moving = true;
 
     private TankFrame tankFrame = null;
 
@@ -47,14 +51,23 @@ public class Tank {
         return dir;
     }
 
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
     public void setDir(Dir dir) {
         this.dir = dir;
     }
 
-    public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
+    public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tankFrame = tankFrame;
     }
 
@@ -77,8 +90,6 @@ public class Tank {
                 graphics.drawImage(ResourceManager.tankU, x, y, null);
                 break;
         }
-
-
         move();
 
     }
@@ -86,7 +97,7 @@ public class Tank {
     public void fire() {
         int bulletX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
         int bulletY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
-        tankFrame.bulletList.add(new Bullet(bulletX, bulletY, this.dir, this.tankFrame));
+        tankFrame.bulletList.add(new Bullet(bulletX, bulletY, this.dir, this.group, this.tankFrame));
     }
 
     private void move() {
@@ -104,6 +115,10 @@ public class Tank {
             case RIGHT:
                 x += SPEED;
                 break;
+        }
+
+        if(random.nextInt(10) > 8) {
+            this.fire();
         }
     }
 
