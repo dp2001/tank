@@ -10,6 +10,7 @@ public class Tank {
     private int x, y;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 4;
+    private boolean living = true;
 
     public static int WIDTH = ResourceManager.tankD.getWidth();
     public static int HEIGHT = ResourceManager.tankD.getHeight();
@@ -24,6 +25,22 @@ public class Tank {
 
     public void setMoving(boolean moving) {
         this.moving = moving;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     public Dir getDir() {
@@ -42,6 +59,10 @@ public class Tank {
     }
 
     public void paint(Graphics graphics){
+        if(!living) {
+            tankFrame.tankList.remove(this);
+        }
+
         switch (dir) {
             case LEFT:
                 graphics.drawImage(ResourceManager.tankL, x, y, null);
@@ -85,4 +106,9 @@ public class Tank {
                 break;
         }
     }
+
+    public void die() {
+        this.living = false;
+    }
+
 }
