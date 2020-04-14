@@ -22,8 +22,8 @@ public class Tank {
     private Group group = Group.BAD;
 
     //坦克的宽度和高度
-    public static int WIDTH = ResourceManager.tankD.getWidth();
-    public static int HEIGHT = ResourceManager.tankD.getHeight();
+    public static int WIDTH = ResourceManager.goodTankD.getWidth();
+    public static int HEIGHT = ResourceManager.goodTankD.getHeight();
 
     private Random random = new Random();
 
@@ -89,16 +89,16 @@ public class Tank {
         //根据方法显示不同的坦克图片
         switch (dir) {
             case LEFT:
-                graphics.drawImage(ResourceManager.tankL, x, y, null);
+                graphics.drawImage(this.group == Group.GOOD ? ResourceManager.goodTankL : ResourceManager.badTankL, x, y, null);
                 break;
             case RIGHT:
-                graphics.drawImage(ResourceManager.tankR, x, y, null);
+                graphics.drawImage(this.group == Group.GOOD ? ResourceManager.goodTankR : ResourceManager.badTankR, x, y, null);
                 break;
             case DOWN:
-                graphics.drawImage(ResourceManager.tankD, x, y, null);
+                graphics.drawImage(this.group == Group.GOOD ? ResourceManager.goodTankD : ResourceManager.badTankR, x, y, null);
                 break;
             case UP:
-                graphics.drawImage(ResourceManager.tankU, x, y, null);
+                graphics.drawImage(this.group == Group.GOOD ? ResourceManager.goodTankU : ResourceManager.badTankR, x, y, null);
                 break;
         }
         move();
