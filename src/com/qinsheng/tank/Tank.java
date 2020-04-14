@@ -13,13 +13,16 @@ public class Tank {
     //坦克方向
     private Dir dir = Dir.DOWN;
     //坦克速度
-    private static final int SPEED = 1;
+    private static final int SPEED = 4;
     //坦克是否活着
     private boolean living = true;
     //坦克是否移动
     private boolean moving = true;
     //敌方坦克还是我方坦克
     private Group group = Group.BAD;
+
+    //坦克范围，矩形
+    Rectangle rectangle = new Rectangle();
 
     //坦克的宽度和高度
     public static int WIDTH = ResourceManager.goodTankD.getWidth();
@@ -77,6 +80,11 @@ public class Tank {
         this.dir = dir;
         this.group = group;
         this.tankFrame = tankFrame;
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+        rectangle.width = WIDTH;
+        rectangle.height = HEIGHT;
     }
 
     //坦克的显示主方法
@@ -140,6 +148,10 @@ public class Tank {
 
         //边界检测
         boundsCheck();
+
+        // update rect
+        rectangle.x = this.x;
+        rectangle.y = this.y;
     }
 
     private void boundsCheck() {

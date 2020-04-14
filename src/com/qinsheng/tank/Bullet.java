@@ -13,6 +13,8 @@ public class Bullet {
     public static int WIDTH = ResourceManager.bulletD.getWidth();
     public static int HEIGHT = ResourceManager.bulletD.getHeight();
 
+    Rectangle rectangle = new Rectangle();
+
     //子弹坐标
     private int x, y;
     //子弹方向
@@ -41,6 +43,11 @@ public class Bullet {
         this.dir = dir;
         this.group = group;
         this.tankFrame = tankFrame;
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+        rectangle.width = WIDTH;
+        rectangle.height = HEIGHT;
     }
 
     //显示子弹主方法
@@ -84,6 +91,10 @@ public class Bullet {
                 break;
         }
 
+        // update rect
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+
         //当子弹飞出界外，标记为死亡
         if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
     }
@@ -97,10 +108,7 @@ public class Bullet {
     public void collideWith(Tank tank) {
         if(this.group == tank.getGroup()) return;
 
-        //TODO: 用一个rect来记录子弹的位置
-        Rectangle rect1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
-        Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
-        if(rect1.intersects(rect2)) {
+        if(this.rectangle.intersects(tank.rectangle)) {
             tank.die();
             this.die();
             int explodeX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
