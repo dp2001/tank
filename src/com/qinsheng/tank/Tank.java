@@ -103,10 +103,10 @@ public class Tank {
                 graphics.drawImage(this.group == Group.GOOD ? ResourceManager.goodTankR : ResourceManager.badTankR, x, y, null);
                 break;
             case DOWN:
-                graphics.drawImage(this.group == Group.GOOD ? ResourceManager.goodTankD : ResourceManager.badTankR, x, y, null);
+                graphics.drawImage(this.group == Group.GOOD ? ResourceManager.goodTankD : ResourceManager.badTankD, x, y, null);
                 break;
             case UP:
-                graphics.drawImage(this.group == Group.GOOD ? ResourceManager.goodTankU : ResourceManager.badTankR, x, y, null);
+                graphics.drawImage(this.group == Group.GOOD ? ResourceManager.goodTankU : ResourceManager.badTankU, x, y, null);
                 break;
         }
         move();
