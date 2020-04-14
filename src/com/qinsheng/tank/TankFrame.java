@@ -24,7 +24,7 @@ public class TankFrame extends Frame {
     List<Explode> explodes = new ArrayList<>();
 
     //设置游戏界面大小
-    static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
+    static final int GAME_WIDTH = PropertyManager.getInt("gameWidth"), GAME_HEIGHT = PropertyManager.getInt("gameHeight");
 
     //构造方法，设置界面属性，以及按键事件
     public TankFrame() {

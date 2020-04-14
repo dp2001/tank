@@ -22,7 +22,7 @@ public class Bullet {
     //子弹是否活着
     private boolean living = true;
     //子弹速度
-    private static final int SPEED = 10;
+    private static final int SPEED = PropertyManager.getInt("bulletSpeed");
     //敌方子弹还是我方子弹
     private Group group = Group.BAD;
 

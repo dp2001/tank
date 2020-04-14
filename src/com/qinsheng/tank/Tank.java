@@ -13,7 +13,7 @@ public class Tank {
     //坦克方向
     private Dir dir = Dir.DOWN;
     //坦克速度
-    private static final int SPEED = 4;
+    private static final int SPEED = PropertyManager.getInt("tankSpeed");
     //坦克是否活着
     private boolean living = true;
     //坦克是否移动
