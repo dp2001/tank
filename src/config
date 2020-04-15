@@ -4,3 +4,6 @@ tankSpeed=5
 bulletSpeed=10
 gameWidth=1080
 gameHeight=960
+#\u5229\u7528\u53CD\u5C04\u52A0\u8F7D\u4E0D\u540C\u7B56\u7565
+goodFireStrategy=com.qinsheng.tank.strategy.FourDirFireStrategy
+badFireStrategy=com.qinsheng.tank.strategy.DefaultFireStrategy

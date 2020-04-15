@@ -5,6 +5,9 @@ import com.qinsheng.tank.list.Group;
 import com.qinsheng.tank.TankFrame;
 import com.qinsheng.tank.manager.PropertyManager;
 import com.qinsheng.tank.manager.ResourceManager;
+import com.qinsheng.tank.strategy.DefaultFireStrategy;
+import com.qinsheng.tank.strategy.FireStrategy;
+import com.qinsheng.tank.strategy.FourDirFireStrategy;
 
 import java.awt.*;
 import java.util.Random;
@@ -14,10 +17,13 @@ import java.util.Random;
  */
 public class Tank {
 
+    //子弹发射策略
+    FireStrategy fireStrategy;
+
     //坦克坐标
-    private int x, y;
+    public int x, y;
     //坦克方向
-    private Dir dir = Dir.DOWN;
+    public Dir dir = Dir.DOWN;
     //坦克速度
     private static final int SPEED = PropertyManager.getInt("tankSpeed");
     //坦克是否活着
@@ -25,7 +31,7 @@ public class Tank {
     //坦克是否移动
     private boolean moving = true;
     //敌方坦克还是我方坦克
-    private Group group = Group.BAD;
+    public Group group = Group.BAD;
 
     //坦克范围，矩形
     Rectangle rectangle = new Rectangle();
@@ -37,7 +43,7 @@ public class Tank {
     private Random random = new Random();
 
     //tankfrome 引用
-    private TankFrame tankFrame = null;
+    public TankFrame tankFrame = null;
 
     public boolean isMoving() {
         return moving;
@@ -120,9 +126,32 @@ public class Tank {
 
     //发射子弹，给子弹列表增加一颗子弹，位置从坦克中心点发出
     public void fire() {
-        int bulletX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
-        int bulletY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
-        tankFrame.bulletList.add(new Bullet(bulletX, bulletY, this.dir, this.group, this.tankFrame));
+        if(group == Group.GOOD) {
+            String goodFireStrategyName = PropertyManager.get("goodFireStrategy").toString();
+            try {
+                //java 9后不建议使用
+                fireStrategy = (FireStrategy) Class.forName(goodFireStrategyName).newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else {
+            String badFireStrategyName = PropertyManager.get("badFireStrategy").toString();
+            try {
+                //java 9后不建议使用
+                fireStrategy = (FireStrategy) Class.forName(badFireStrategyName).newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        fireStrategy.fire(this);
     }
 
     //坦克的移动方法
