@@ -1,4 +1,6 @@
-package com.qinsheng.tank;
+package com.qinsheng.tank.manager;
+
+import com.qinsheng.tank.util.ImageUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

@@ -1,4 +1,4 @@
-package com.qinsheng.tank;
+package com.qinsheng.tank.manager;
 
 import java.io.IOException;
 import java.util.Properties;

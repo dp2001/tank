@@ -1,6 +1,10 @@
-package com.qinsheng.tank;
+package com.qinsheng.tank.entity;
 
-import org.w3c.dom.css.Rect;
+import com.qinsheng.tank.list.Dir;
+import com.qinsheng.tank.list.Group;
+import com.qinsheng.tank.TankFrame;
+import com.qinsheng.tank.manager.PropertyManager;
+import com.qinsheng.tank.manager.ResourceManager;
 
 import java.awt.*;
 

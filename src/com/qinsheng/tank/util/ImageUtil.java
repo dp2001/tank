@@ -1,4 +1,4 @@
-package com.qinsheng.tank;
+package com.qinsheng.tank.util;
 
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;

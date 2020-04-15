@@ -1,5 +1,10 @@
 package com.qinsheng.tank;
 
+import com.qinsheng.tank.entity.Tank;
+import com.qinsheng.tank.list.Dir;
+import com.qinsheng.tank.list.Group;
+import com.qinsheng.tank.manager.PropertyManager;
+
 /**
  * Created by qinsheng on 2020/4/11.
  */

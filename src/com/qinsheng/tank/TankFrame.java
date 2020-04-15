@@ -1,6 +1,13 @@
 package com.qinsheng.tank;
 
 
+import com.qinsheng.tank.entity.Bullet;
+import com.qinsheng.tank.entity.Explode;
+import com.qinsheng.tank.entity.Tank;
+import com.qinsheng.tank.list.Dir;
+import com.qinsheng.tank.list.Group;
+import com.qinsheng.tank.manager.PropertyManager;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -17,14 +24,14 @@ public class TankFrame extends Frame {
     //我方坦克
     Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD, this);
     //子弹
-    List<Bullet> bulletList = new ArrayList<>();
+    public List<Bullet> bulletList = new ArrayList<>();
     //敌方坦克
-    List<Tank> tankList = new ArrayList<>();
+    public List<Tank> tankList = new ArrayList<>();
     //爆炸
-    List<Explode> explodes = new ArrayList<>();
+    public List<Explode> explodes = new ArrayList<>();
 
     //设置游戏界面大小
-    static final int GAME_WIDTH = PropertyManager.getInt("gameWidth"), GAME_HEIGHT = PropertyManager.getInt("gameHeight");
+    public static final int GAME_WIDTH = PropertyManager.getInt("gameWidth"), GAME_HEIGHT = PropertyManager.getInt("gameHeight");
 
     //构造方法，设置界面属性，以及按键事件
     public TankFrame() {

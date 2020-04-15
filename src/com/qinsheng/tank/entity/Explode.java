@@ -1,4 +1,8 @@
-package com.qinsheng.tank;
+package com.qinsheng.tank.entity;
+
+import com.qinsheng.tank.util.Audio;
+import com.qinsheng.tank.TankFrame;
+import com.qinsheng.tank.manager.ResourceManager;
 
 import java.awt.*;
 
