@@ -1,5 +1,6 @@
 package com.qinsheng.tank.entity;
 
+import com.qinsheng.tank.abstractFactory.BaseTank;
 import com.qinsheng.tank.list.Dir;
 import com.qinsheng.tank.list.Group;
 import com.qinsheng.tank.TankFrame;
@@ -8,6 +9,7 @@ import com.qinsheng.tank.manager.ResourceManager;
 import com.qinsheng.tank.strategy.DefaultFireStrategy;
 import com.qinsheng.tank.strategy.FireStrategy;
 import com.qinsheng.tank.strategy.FourDirFireStrategy;
+import com.qinsheng.tank.util.Audio;
 
 import java.awt.*;
 import java.util.Random;
@@ -15,10 +17,10 @@ import java.util.Random;
 /**
  * Created by qinsheng on 2020/4/12.
  */
-public class Tank {
+public class Tank extends BaseTank {
 
     //子弹发射策略
-    FireStrategy fireStrategy;
+//    FireStrategy fireStrategy;
 
     //坦克坐标
     public int x, y;
@@ -26,15 +28,11 @@ public class Tank {
     public Dir dir = Dir.DOWN;
     //坦克速度
     private static final int SPEED = PropertyManager.getInt("tankSpeed");
-    //坦克是否活着
-    private boolean living = true;
     //坦克是否移动
-    private boolean moving = true;
-    //敌方坦克还是我方坦克
-    public Group group = Group.BAD;
+    private boolean moving = false;
 
     //坦克范围，矩形
-    Rectangle rectangle = new Rectangle();
+//    Rectangle rectangle = new Rectangle();
 
     //坦克的宽度和高度
     public static int WIDTH = ResourceManager.goodTankD.getWidth();
@@ -100,6 +98,7 @@ public class Tank {
     }
 
     //坦克的显示主方法
+    @Override
     public void paint(Graphics graphics){
         //如果敌方坦克死了，从敌方坦克列表中移除
         if(!living) {
@@ -126,37 +125,41 @@ public class Tank {
 
     //发射子弹，给子弹列表增加一颗子弹，位置从坦克中心点发出
     public void fire() {
-        if(group == Group.GOOD) {
-            String goodFireStrategyName = PropertyManager.get("goodFireStrategy").toString();
-            try {
-                //java 9后不建议使用
-                fireStrategy = (FireStrategy) Class.forName(goodFireStrategyName).newInstance();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        } else {
-            String badFireStrategyName = PropertyManager.get("badFireStrategy").toString();
-            try {
-                //java 9后不建议使用
-                fireStrategy = (FireStrategy) Class.forName(badFireStrategyName).newInstance();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-        fireStrategy.fire(this);
+//        if(group == Group.GOOD) {
+//            String goodFireStrategyName = PropertyManager.get("goodFireStrategy").toString();
+//            try {
+//                //java 9后不建议使用
+//                //fireStrategy = (FireStrategy) Class.forName(goodFireStrategyName).newInstance();
+//                fireStrategy = (FireStrategy) Class.forName(goodFireStrategyName).getDeclaredConstructor().newInstance();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        } else {
+//            String badFireStrategyName = PropertyManager.get("badFireStrategy").toString();
+//            try {
+//                //java 9后不建议使用
+//                fireStrategy = (FireStrategy) Class.forName(badFireStrategyName).newInstance();
+//            } catch (InstantiationException e) {
+//                e.printStackTrace();
+//            } catch (IllegalAccessException e) {
+//                e.printStackTrace();
+//            } catch (ClassNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        fireStrategy.fire(this);
+
+        int bulletX = x + Tank.WIDTH/2 - Bullet.WIDTH/2;
+        int bulletY = y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
+        tankFrame.bulletList.add(tankFrame.gameFactory.createBullet(bulletX, bulletY, this.dir, this.group, this.tankFrame));
+
+        if(this.getGroup() == Group.GOOD)
+            new Thread(() -> new Audio("audio/tank_fire.mav"));
     }
 
     //坦克的移动方法
     private void move() {
-        if(!moving) return;
+//        if(!moving) return;
         switch (dir) {
             case UP:
                 y -= SPEED;

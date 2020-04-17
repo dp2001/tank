@@ -1,8 +1,7 @@
 package com.qinsheng.tank;
 
 
-import com.qinsheng.tank.entity.Bullet;
-import com.qinsheng.tank.entity.Explode;
+import com.qinsheng.tank.abstractFactory.*;
 import com.qinsheng.tank.entity.Tank;
 import com.qinsheng.tank.list.Dir;
 import com.qinsheng.tank.list.Group;
@@ -24,11 +23,13 @@ public class TankFrame extends Frame {
     //我方坦克
     Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD, this);
     //子弹
-    public List<Bullet> bulletList = new ArrayList<>();
+    public List<BaseBullet> bulletList = new ArrayList<>();
     //敌方坦克
-    public List<Tank> tankList = new ArrayList<>();
+    public List<BaseTank> tankList = new ArrayList<>();
     //爆炸
-    public List<Explode> explodes = new ArrayList<>();
+    public List<BaseExplode> explodes = new ArrayList<>();
+
+    public GameFactory gameFactory = new DefaultFactory();
 
     //设置游戏界面大小
     public static final int GAME_WIDTH = PropertyManager.getInt("gameWidth"), GAME_HEIGHT = PropertyManager.getInt("gameHeight");

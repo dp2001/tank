@@ -1,5 +1,7 @@
 package com.qinsheng.tank.entity;
 
+import com.qinsheng.tank.abstractFactory.BaseBullet;
+import com.qinsheng.tank.abstractFactory.BaseTank;
 import com.qinsheng.tank.list.Dir;
 import com.qinsheng.tank.list.Group;
 import com.qinsheng.tank.TankFrame;
@@ -11,7 +13,7 @@ import java.awt.*;
 /**
  * Created by qinsheng on 2020/4/12.
  */
-public class Bullet {
+public class Bullet extends BaseBullet{
 
     //子弹的宽度和高度
     public static int WIDTH = ResourceManager.bulletD.getWidth();
@@ -53,10 +55,11 @@ public class Bullet {
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        tankFrame.bulletList.add(this);
+//        tankFrame.bulletList.add(this);
     }
 
     //显示子弹主方法
+    @Override
     public void paint(Graphics graphics) {
         if(!living) {
             tankFrame.bulletList.remove(this);
@@ -111,7 +114,7 @@ public class Bullet {
     }
 
     //碰撞方法，判断是否和坦克相撞，相撞同阵营坦克，不做处理。
-    public void collideWith(Tank tank) {
+    public void collideWith(BaseTank tank) {
         if(this.group == tank.getGroup()) return;
 
         if(this.rectangle.intersects(tank.rectangle)) {
@@ -119,7 +122,7 @@ public class Bullet {
             this.die();
             int explodeX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
             int explodeY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-            tankFrame.explodes.add(new Explode(explodeX, explodeY, tankFrame));
+            tankFrame.explodes.add(tankFrame.gameFactory.createExplode(explodeX, explodeY, tankFrame));
         }
     }
 }
