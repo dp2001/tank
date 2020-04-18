@@ -4,6 +4,7 @@ import java.awt.*;
 
 /**
  * Created by qinsheng on 2020/4/18.
+ * 所有游戏物体的父类
  */
 public abstract class GameObject {
 

@@ -1,11 +1,7 @@
 package com.qinsheng.tank;
 
-
-import com.qinsheng.tank.entity.Bullet;
-import com.qinsheng.tank.entity.Explode;
 import com.qinsheng.tank.entity.Tank;
 import com.qinsheng.tank.list.Dir;
-import com.qinsheng.tank.list.Group;
 import com.qinsheng.tank.manager.PropertyManager;
 
 import java.awt.*;
@@ -13,8 +9,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.List;
-import java.util.ArrayList;
 
 /**
  * Created by qinsheng on 2020/4/11.
@@ -22,7 +16,6 @@ import java.util.ArrayList;
 public class TankFrame extends Frame {
 
     GameModel gameModel = new GameModel();
-
 
     //设置游戏界面大小
     public static final int GAME_WIDTH = PropertyManager.getInt("gameWidth"), GAME_HEIGHT = PropertyManager.getInt("gameHeight");
@@ -75,7 +68,6 @@ public class TankFrame extends Frame {
         boolean bR = false;
         boolean bD = false;
 
-
         @Override
         public void keyPressed(KeyEvent e) {
             int key = e.getKeyCode();
@@ -96,7 +88,6 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
-
             setMainTankDir();
         }
 

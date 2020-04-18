@@ -19,7 +19,7 @@ public class Bullet extends GameObject {
     public static int WIDTH = ResourceManager.bulletD.getWidth();
     public static int HEIGHT = ResourceManager.bulletD.getHeight();
 
-    Rectangle rectangle = new Rectangle();
+    public Rectangle rectangle = new Rectangle();
 
     //子弹坐标
     private int x, y;
@@ -30,7 +30,7 @@ public class Bullet extends GameObject {
     //子弹速度
     private static final int SPEED = PropertyManager.getInt("bulletSpeed");
     //敌方子弹还是我方子弹
-    private Group group = Group.BAD;
+    public Group group = Group.BAD;
 
     GameModel gameModel = null;
 
@@ -55,14 +55,14 @@ public class Bullet extends GameObject {
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        gameModel.bulletList.add(this);
+        gameModel.add(this);
     }
 
     //显示子弹主方法
     @Override
     public void paint(Graphics graphics) {
         if(!living) {
-            gameModel.bulletList.remove(this);
+            gameModel.remove(this);
         }
 
         switch (dir) {
@@ -109,20 +109,23 @@ public class Bullet extends GameObject {
     }
 
     //死亡
-    private void die() {
+    public void die() {
         this.living = false;
     }
 
     //碰撞方法，判断是否和坦克相撞，相撞同阵营坦克，不做处理。
-    public void collideWith(Tank tank) {
-        if(this.group == tank.getGroup()) return;
+    public boolean collideWith(Tank tank) {
+        if(this.group == tank.getGroup()) return false;
 
-        if(this.rectangle.intersects(tank.rectangle)) {
+        if(this.rectangle.intersects(tank.getRectangle())) {
             tank.die();
             this.die();
             int explodeX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
             int explodeY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-            gameModel.explodes.add(new Explode(explodeX, explodeY, gameModel));
+            gameModel.add(new Explode(explodeX, explodeY, gameModel));
+            return true;
         }
+
+        return false;
     }
 }

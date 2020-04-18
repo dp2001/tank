@@ -3,7 +3,6 @@ package com.qinsheng.tank.entity;
 import com.qinsheng.tank.GameModel;
 import com.qinsheng.tank.GameObject;
 import com.qinsheng.tank.util.Audio;
-import com.qinsheng.tank.TankFrame;
 import com.qinsheng.tank.manager.ResourceManager;
 
 import java.awt.*;
@@ -39,7 +38,7 @@ public class Explode extends GameObject {
     public void paint(Graphics graphics) {
         graphics.drawImage(ResourceManager.explodes[step++], x, y, null);
         if(step >= ResourceManager.explodes.length){
-            gameModel.explodes.remove(this);
+            gameModel.remove(this);
         }
     }
 }

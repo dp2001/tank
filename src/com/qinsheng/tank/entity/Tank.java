@@ -37,7 +37,7 @@ public class Tank extends GameObject {
     public Group group = Group.BAD;
 
     //坦克范围，矩形
-    Rectangle rectangle = new Rectangle();
+    private Rectangle rectangle = new Rectangle();
 
     //坦克的宽度和高度
     public static int WIDTH = ResourceManager.goodTankD.getWidth();
@@ -88,6 +88,14 @@ public class Tank extends GameObject {
         this.dir = dir;
     }
 
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+
+    public void setRectangle(Rectangle rectangle) {
+        this.rectangle = rectangle;
+    }
+
     //构造方法
     public Tank(int x, int y, Dir dir, Group group, GameModel gameModel) {
         this.x = x;
@@ -107,7 +115,7 @@ public class Tank extends GameObject {
     public void paint(Graphics graphics){
         //如果敌方坦克死了，从敌方坦克列表中移除
         if(!living) {
-            gameModel.tankList.remove(this);
+            gameModel.remove(this);
         }
 
         //根据方法显示不同的坦克图片
@@ -208,6 +216,10 @@ public class Tank extends GameObject {
     //阵亡
     public void die() {
         this.living = false;
+    }
+
+    public void stop() {
+        this.moving = false;
     }
 
 }
