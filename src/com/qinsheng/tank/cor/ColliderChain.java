@@ -23,7 +23,7 @@ public class ColliderChain implements Collider {
 
     public boolean collide(GameObject o1, GameObject o2) {
         for(int i=0; i<colliderList.size(); i++) {
-            if(colliderList.get(i).collide(o1, o2)) {
+            if(!colliderList.get(i).collide(o1, o2)) {
                 return false;
             }
         }
