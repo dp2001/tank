@@ -1,13 +1,13 @@
 package com.qinsheng.tank.entity;
 
+import com.qinsheng.tank.GameModel;
+import com.qinsheng.tank.GameObject;
 import com.qinsheng.tank.list.Dir;
 import com.qinsheng.tank.list.Group;
 import com.qinsheng.tank.TankFrame;
 import com.qinsheng.tank.manager.PropertyManager;
 import com.qinsheng.tank.manager.ResourceManager;
-import com.qinsheng.tank.strategy.DefaultFireStrategy;
 import com.qinsheng.tank.strategy.FireStrategy;
-import com.qinsheng.tank.strategy.FourDirFireStrategy;
 
 import java.awt.*;
 import java.util.Random;
@@ -15,10 +15,13 @@ import java.util.Random;
 /**
  * Created by qinsheng on 2020/4/12.
  */
-public class Tank {
+public class Tank extends GameObject {
 
     //子弹发射策略
     FireStrategy fireStrategy;
+
+    //原来含有TankFrame用来获取画面中List含有的数据，现在不需要了
+    public GameModel gameModel;
 
     //坦克坐标
     public int x, y;
@@ -42,8 +45,8 @@ public class Tank {
 
     private Random random = new Random();
 
-    //tankfrome 引用
-    public TankFrame tankFrame = null;
+    //去掉tankfrome 引用，引入GameModel
+//    public TankFrame tankFrame = null;
 
     public boolean isMoving() {
         return moving;
@@ -86,12 +89,12 @@ public class Tank {
     }
 
     //构造方法
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
+    public Tank(int x, int y, Dir dir, Group group, GameModel gameModel) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
@@ -100,10 +103,11 @@ public class Tank {
     }
 
     //坦克的显示主方法
+    @Override
     public void paint(Graphics graphics){
         //如果敌方坦克死了，从敌方坦克列表中移除
         if(!living) {
-            tankFrame.tankList.remove(this);
+            gameModel.tankList.remove(this);
         }
 
         //根据方法显示不同的坦克图片

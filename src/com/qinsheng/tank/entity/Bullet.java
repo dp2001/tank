@@ -1,5 +1,7 @@
 package com.qinsheng.tank.entity;
 
+import com.qinsheng.tank.GameModel;
+import com.qinsheng.tank.GameObject;
 import com.qinsheng.tank.list.Dir;
 import com.qinsheng.tank.list.Group;
 import com.qinsheng.tank.TankFrame;
@@ -11,7 +13,7 @@ import java.awt.*;
 /**
  * Created by qinsheng on 2020/4/12.
  */
-public class Bullet {
+public class Bullet extends GameObject {
 
     //子弹的宽度和高度
     public static int WIDTH = ResourceManager.bulletD.getWidth();
@@ -30,7 +32,7 @@ public class Bullet {
     //敌方子弹还是我方子弹
     private Group group = Group.BAD;
 
-    TankFrame tankFrame = null;
+    GameModel gameModel = null;
 
     public Group getGroup() {
         return group;
@@ -41,25 +43,26 @@ public class Bullet {
     }
 
     //构造方法
-    public Bullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
+    public Bullet(int x, int y, Dir dir, Group group, GameModel gameModel) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        tankFrame.bulletList.add(this);
+        gameModel.bulletList.add(this);
     }
 
     //显示子弹主方法
+    @Override
     public void paint(Graphics graphics) {
         if(!living) {
-            tankFrame.bulletList.remove(this);
+            gameModel.bulletList.remove(this);
         }
 
         switch (dir) {
@@ -119,7 +122,7 @@ public class Bullet {
             this.die();
             int explodeX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
             int explodeY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-            tankFrame.explodes.add(new Explode(explodeX, explodeY, tankFrame));
+            gameModel.explodes.add(new Explode(explodeX, explodeY, gameModel));
         }
     }
 }
