@@ -25,6 +25,9 @@ public class Tank extends GameObject {
 
     //坦克坐标
     public int x, y;
+
+    public int oldX, oldY;
+
     //坦克方向
     public Dir dir = Dir.DOWN;
     //坦克速度
@@ -168,6 +171,10 @@ public class Tank extends GameObject {
 
     //坦克的移动方法
     private void move() {
+        //记录移动之前的位置
+        oldX = x;
+        oldY = y;
+
         if(!moving) return;
         switch (dir) {
             case UP:
@@ -216,6 +223,11 @@ public class Tank extends GameObject {
     //阵亡
     public void die() {
         this.living = false;
+    }
+
+    public void back() {
+        x = oldX;
+        y = oldY;
     }
 
     public void stop() {
