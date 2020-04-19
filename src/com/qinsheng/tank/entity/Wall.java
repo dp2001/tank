@@ -1,5 +1,7 @@
 package com.qinsheng.tank.entity;
 
+import com.qinsheng.tank.GameModel;
+
 import java.awt.*;
 
 /**
@@ -18,6 +20,7 @@ public class Wall extends GameObject {
         this.h = h;
 
         this.rectangle = new Rectangle(x, y, w, h);
+        GameModel.getInstance().add(this);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.qinsheng.tank.cor;
 
 
+import com.qinsheng.tank.entity.Explode;
 import com.qinsheng.tank.entity.GameObject;
 import com.qinsheng.tank.entity.Bullet;
 import com.qinsheng.tank.entity.Tank;
@@ -15,19 +16,19 @@ public class BulletTankCollier implements Collider {
         if(o1 instanceof Bullet && o2 instanceof Tank) {
             Bullet bullet = (Bullet) o1;
             Tank tank = (Tank) o2;
-            bullet.collideWith(tank);
 
-            return !bullet.collideWith(tank);
+            //碰撞方法，判断是否和坦克相撞，相撞同阵营坦克，不做处理。
+            if(bullet.group == tank.getGroup()) {
+                return true;
+            }
 
-//            if(bullet.group == tank.getGroup()) return;
-//
-//            if(bullet.rectangle.intersects(tank.rectangle)) {
-//                tank.die();
-//                bullet.die();
-//                int explodeX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
-//                int explodeY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-//                gameModel.add(new Explode(explodeX, explodeY, gameModel));
-//            }
+            if(bullet.rectangle.intersects(tank.getRectangle())) {
+                tank.die();
+                bullet.die();
+                int explodeX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
+                int explodeY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
+                new Explode(explodeX, explodeY);
+            }
         } else if(o2 instanceof Bullet && o1 instanceof Tank) {
             collide(o2, o1);
         }

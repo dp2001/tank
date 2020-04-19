@@ -20,27 +20,40 @@ import java.util.List;
  * 对model来说，相当于调停者模式 -- 未完成，效果不明显
  */
 public class GameModel {
+    Tank myTank;
 
-    //我方坦克
-    Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD, this);
+    //设置成为单例
+    private static final GameModel INSTANCE = new GameModel();
+
+    static {
+        INSTANCE.init();
+    }
 
     public List<GameObject> gameObjects = new ArrayList<>();
 
     //责任链
     ColliderChain colliderChain = new ColliderChain();
 
-    public GameModel() {
+    private GameModel() {
+
+    }
+
+    private void init() {
+        //我方坦克
+        myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD);
+
         int initTankCount = PropertyManager.getInt("initTankCount");
 
         //初始化敌方坦克
         for(int i = 0; i < initTankCount; i++) {
-            add(new Tank(50 + i*80, 200, Dir.DOWN, Group.BAD, this));
+            new Tank(50 + i*80, 200, Dir.DOWN, Group.BAD);
         }
 
-        add(new Wall(150, 150, 60, 200));
-        add(new Wall(550, 150, 60, 200));
-        add(new Wall(300, 300, 200, 60));
-        add(new Wall(550, 330, 200, 60));
+        new Wall(150, 150, 60, 200);
+    }
+
+    public static GameModel getInstance(){
+        return INSTANCE;
     }
 
     public void add(GameObject gameObject) {
@@ -59,7 +72,7 @@ public class GameModel {
         graphics.setColor(c);
 
         //显示我方坦克
-        myTank.paint(graphics);
+//        myTank.paint(graphics);
 
         //显示所有子弹
         for(int i = 0; i < gameObjects.size(); i++) {

@@ -31,8 +31,6 @@ public class Bullet extends GameObject {
     //敌方子弹还是我方子弹
     public Group group = Group.BAD;
 
-    GameModel gameModel = null;
-
     public Group getGroup() {
         return group;
     }
@@ -42,26 +40,25 @@ public class Bullet extends GameObject {
     }
 
     //构造方法
-    public Bullet(int x, int y, Dir dir, Group group, GameModel gameModel) {
+    public Bullet(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gameModel = gameModel;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        gameModel.add(this);
+        GameModel.getInstance().add(this);
     }
 
     //显示子弹主方法
     @Override
     public void paint(Graphics graphics) {
         if(!living) {
-            gameModel.remove(this);
+            GameModel.getInstance().remove(this);
         }
 
         switch (dir) {
@@ -88,14 +85,14 @@ public class Bullet extends GameObject {
             case UP:
                 y -= SPEED;
                 break;
+            case RIGHT:
+                x += SPEED;
+                break;
             case DOWN:
                 y += SPEED;
                 break;
             case LEFT:
                 x -= SPEED;
-                break;
-            case RIGHT:
-                x += SPEED;
                 break;
         }
 
@@ -110,21 +107,5 @@ public class Bullet extends GameObject {
     //死亡
     public void die() {
         this.living = false;
-    }
-
-    //碰撞方法，判断是否和坦克相撞，相撞同阵营坦克，不做处理。
-    public boolean collideWith(Tank tank) {
-        if(this.group == tank.getGroup()) return false;
-
-        if(this.rectangle.intersects(tank.getRectangle())) {
-            tank.die();
-            this.die();
-            int explodeX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
-            int explodeY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-            gameModel.add(new Explode(explodeX, explodeY, gameModel));
-            return true;
-        }
-
-        return false;
     }
 }

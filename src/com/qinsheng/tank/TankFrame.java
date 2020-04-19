@@ -15,8 +15,6 @@ import java.awt.event.WindowEvent;
  */
 public class TankFrame extends Frame {
 
-    GameModel gameModel = new GameModel();
-
     //设置游戏界面大小
     public static final int GAME_WIDTH = PropertyManager.getInt("gameWidth"), GAME_HEIGHT = PropertyManager.getInt("gameHeight");
 
@@ -56,7 +54,7 @@ public class TankFrame extends Frame {
     //界面显示主要方法
     @Override
     public void paint(Graphics graphics) {
-        gameModel.paint(graphics);
+        GameModel.getInstance().paint(graphics);
     }
 
 
@@ -109,7 +107,7 @@ public class TankFrame extends Frame {
                     break;
 
                 case KeyEvent.VK_CONTROL:
-                    gameModel.getMyTank().fire();
+                    GameModel.getInstance().getMyTank().fire();
                     break;
 
                 default:
@@ -120,7 +118,7 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
-            Tank myTank = gameModel.getMyTank();
+            Tank myTank = GameModel.getInstance().getMyTank();
             if(!bL && !bU && !bR && !bD) {
                 myTank.setMoving(false);
             } else {

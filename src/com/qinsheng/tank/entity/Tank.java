@@ -19,9 +19,6 @@ public class Tank extends GameObject {
     //子弹发射策略
     FireStrategy fireStrategy;
 
-    //原来含有TankFrame用来获取画面中List含有的数据，现在不需要了
-    public GameModel gameModel;
-
     //坦克坐标
     public int x, y;
 
@@ -46,9 +43,6 @@ public class Tank extends GameObject {
     public static int HEIGHT = ResourceManager.goodTankD.getHeight();
 
     private Random random = new Random();
-
-    //去掉tankfrome 引用，引入GameModel
-//    public TankFrame tankFrame = null;
 
     public boolean isMoving() {
         return moving;
@@ -99,17 +93,18 @@ public class Tank extends GameObject {
     }
 
     //构造方法
-    public Tank(int x, int y, Dir dir, Group group, GameModel gameModel) {
+    public Tank(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gameModel = gameModel;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
+
+        GameModel.getInstance().add(this);
     }
 
     //坦克的显示主方法
@@ -117,7 +112,7 @@ public class Tank extends GameObject {
     public void paint(Graphics graphics){
         //如果敌方坦克死了，从敌方坦克列表中移除
         if(!living) {
-            gameModel.remove(this);
+            GameModel.getInstance().remove(this);
         }
 
         //根据方法显示不同的坦克图片
@@ -227,10 +222,6 @@ public class Tank extends GameObject {
     public void back() {
         x = oldX;
         y = oldY;
-    }
-
-    public void stop() {
-        this.moving = false;
     }
 
 }

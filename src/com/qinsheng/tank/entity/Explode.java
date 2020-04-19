@@ -20,16 +20,14 @@ public class Explode extends GameObject {
 
     private int step = 0;
 
-    public GameModel gameModel = null;
-
     //构造方法
-    public Explode(int x, int y, GameModel gameModel) {
+    public Explode(int x, int y) {
         this.x = x;
         this.y = y;
-        this.gameModel = gameModel;
 
         //显示音效
         new Thread(() -> new Audio("audio/explode.wav").play()).start();
+        GameModel.getInstance().add(this);
     }
 
     //爆炸显示主方法，显示多张图片以达到动画效果，显示完成后，自动从爆炸图片列表删除
@@ -37,7 +35,7 @@ public class Explode extends GameObject {
     public void paint(Graphics graphics) {
         graphics.drawImage(ResourceManager.explodes[step++], x, y, null);
         if(step >= ResourceManager.explodes.length){
-            gameModel.remove(this);
+            GameModel.getInstance().remove(this);
         }
     }
 }
