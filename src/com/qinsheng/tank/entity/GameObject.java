@@ -1,4 +1,4 @@
-package com.qinsheng.tank;
+package com.qinsheng.tank.entity;
 
 import java.awt.*;
 

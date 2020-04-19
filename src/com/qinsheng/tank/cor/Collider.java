@@ -1,6 +1,6 @@
 package com.qinsheng.tank.cor;
 
-import com.qinsheng.tank.GameObject;
+import com.qinsheng.tank.entity.GameObject;
 
 /**
  * Created by qinsheng on 2020/4/19.

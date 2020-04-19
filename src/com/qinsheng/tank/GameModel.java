@@ -1,7 +1,9 @@
 package com.qinsheng.tank;
 
 import com.qinsheng.tank.cor.ColliderChain;
+import com.qinsheng.tank.entity.GameObject;
 import com.qinsheng.tank.entity.Tank;
+import com.qinsheng.tank.entity.Wall;
 import com.qinsheng.tank.list.Dir;
 import com.qinsheng.tank.list.Group;
 import com.qinsheng.tank.manager.PropertyManager;
@@ -21,18 +23,10 @@ public class GameModel {
 
     //我方坦克
     Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD, this);
-//    //子弹
-//    public List<Bullet> bulletList = new ArrayList<>();
-//    //敌方坦克
-//    public List<Tank> tankList = new ArrayList<>();
-//    //爆炸
-//    public List<Explode> explodes = new ArrayList<>();
 
     public List<GameObject> gameObjects = new ArrayList<>();
 
-//    Collider collider = new BulletTankCollier();
-//    Collider collider2 = new TankTankCollier();
-
+    //责任链
     ColliderChain colliderChain = new ColliderChain();
 
     public GameModel() {
@@ -42,6 +36,11 @@ public class GameModel {
         for(int i = 0; i < initTankCount; i++) {
             add(new Tank(50 + i*80, 200, Dir.DOWN, Group.BAD, this));
         }
+
+        add(new Wall(150, 150, 200, 60));
+        add(new Wall(550, 150, 200, 60));
+        add(new Wall(300, 300, 200, 60));
+        add(new Wall(550, 330, 200, 60));
     }
 
     public void add(GameObject gameObject) {
@@ -57,9 +56,6 @@ public class GameModel {
 
         Color c = graphics.getColor();
         graphics.setColor(Color.WHITE);
-//        graphics.drawString("子弹的数量" + bulletList.size(), 10, 60);
-//        graphics.drawString("敌人的数量" + tankList.size(), 10, 80);
-//        graphics.drawString("爆炸的数量" + explodes.size(), 10, 100);
         graphics.setColor(c);
 
         //显示我方坦克
@@ -80,13 +76,6 @@ public class GameModel {
 
             }
         }
-
-        //判断所有子弹和敌方坦克是否相撞
-//        for(int i = 0; i < bulletList.size(); i++) {
-//            for(int j = 0; j < tankList.size(); j++) {
-//                bulletList.get(i).collideWith(tankList.get(j));
-//            }
-//        }
 
     }
 

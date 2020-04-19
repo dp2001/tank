@@ -1,7 +1,6 @@
 package com.qinsheng.tank.entity;
 
 import com.qinsheng.tank.GameModel;
-import com.qinsheng.tank.GameObject;
 import com.qinsheng.tank.list.Dir;
 import com.qinsheng.tank.list.Group;
 import com.qinsheng.tank.TankFrame;

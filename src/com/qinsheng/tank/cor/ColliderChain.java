@@ -1,6 +1,6 @@
 package com.qinsheng.tank.cor;
 
-import com.qinsheng.tank.GameObject;
+import com.qinsheng.tank.entity.GameObject;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -13,8 +13,9 @@ public class ColliderChain implements Collider {
     private List<Collider> colliderList = new LinkedList<>();
 
     public ColliderChain(){
-        colliderList.add(new BulletTankCollier());
-        colliderList.add(new TankTankCollier());
+        add(new BulletTankCollier());
+        add(new TankTankCollier());
+        add(new BulletWallCollier());
     }
 
     public void add(Collider c) {

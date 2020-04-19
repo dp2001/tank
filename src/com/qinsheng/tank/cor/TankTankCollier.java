@@ -1,7 +1,7 @@
 package com.qinsheng.tank.cor;
 
 
-import com.qinsheng.tank.GameObject;
+import com.qinsheng.tank.entity.GameObject;
 import com.qinsheng.tank.entity.Bullet;
 import com.qinsheng.tank.entity.Tank;
 
