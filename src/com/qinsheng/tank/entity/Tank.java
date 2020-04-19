@@ -19,9 +19,6 @@ public class Tank extends GameObject {
     //子弹发射策略
     FireStrategy fireStrategy;
 
-    //坦克坐标
-    public int x, y;
-
     public int oldX, oldY;
 
     //坦克方向
@@ -140,11 +137,7 @@ public class Tank extends GameObject {
             try {
                 //java 9后不建议使用
                 fireStrategy = (FireStrategy) Class.forName(goodFireStrategyName).newInstance();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
@@ -152,11 +145,7 @@ public class Tank extends GameObject {
             try {
                 //java 9后不建议使用
                 fireStrategy = (FireStrategy) Class.forName(badFireStrategyName).newInstance();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -222,6 +211,16 @@ public class Tank extends GameObject {
     public void back() {
         x = oldX;
         y = oldY;
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 
 }

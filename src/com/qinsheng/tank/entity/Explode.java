@@ -15,9 +15,6 @@ public class Explode extends GameObject {
     public static int WIDTH = ResourceManager.explodes[0].getWidth();
     public static int HEIGHT = ResourceManager.explodes[0].getHeight();
 
-    //爆炸坐标
-    private int x, y;
-
     private int step = 0;
 
     //构造方法
@@ -37,5 +34,15 @@ public class Explode extends GameObject {
         if(step >= ResourceManager.explodes.length){
             GameModel.getInstance().remove(this);
         }
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 }

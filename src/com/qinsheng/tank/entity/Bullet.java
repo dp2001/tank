@@ -20,8 +20,6 @@ public class Bullet extends GameObject {
 
     public Rectangle rectangle = new Rectangle();
 
-    //子弹坐标
-    private int x, y;
     //子弹方向
     private Dir dir;
     //子弹是否活着
@@ -107,5 +105,15 @@ public class Bullet extends GameObject {
     //死亡
     public void die() {
         this.living = false;
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 }
