@@ -37,8 +37,8 @@ public class GameModel {
             add(new Tank(50 + i*80, 200, Dir.DOWN, Group.BAD, this));
         }
 
-        add(new Wall(150, 150, 200, 60));
-        add(new Wall(550, 150, 200, 60));
+        add(new Wall(150, 150, 60, 200));
+        add(new Wall(550, 150, 60, 200));
         add(new Wall(300, 300, 200, 60));
         add(new Wall(550, 330, 200, 60));
     }
