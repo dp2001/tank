@@ -3,12 +3,17 @@ package com.qinsheng.tank;
 import com.qinsheng.tank.entity.Tank;
 import com.qinsheng.tank.list.Dir;
 import com.qinsheng.tank.manager.PropertyManager;
+import com.qinsheng.tank.observer.TankFireEvent;
+import com.qinsheng.tank.observer.TankFireHandler;
+import com.qinsheng.tank.observer.TankFireObserver;
+import java.util.List;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Arrays;
 
 /**
  * Created by qinsheng on 2020/4/11.
@@ -107,7 +112,7 @@ public class TankFrame extends Frame {
                     break;
 
                 case KeyEvent.VK_CONTROL:
-                    GameModel.getInstance().getMyTank().fire();
+                    GameModel.getInstance().getMyTank().handleFireKey();
                     break;
 
                 default:
@@ -131,5 +136,4 @@ public class TankFrame extends Frame {
             }
         }
     }
-
 }

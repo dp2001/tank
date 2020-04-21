@@ -6,9 +6,14 @@ import com.qinsheng.tank.list.Group;
 import com.qinsheng.tank.TankFrame;
 import com.qinsheng.tank.manager.PropertyManager;
 import com.qinsheng.tank.manager.ResourceManager;
+import com.qinsheng.tank.observer.TankFireEvent;
+import com.qinsheng.tank.observer.TankFireHandler;
+import com.qinsheng.tank.observer.TankFireObserver;
 import com.qinsheng.tank.strategy.FireStrategy;
 
 import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -222,5 +227,14 @@ public class Tank extends GameObject {
     public int getHeight() {
         return HEIGHT;
     }
+
+    private List<TankFireObserver> fireObservers = Arrays.asList(new TankFireHandler());
+    public void handleFireKey() {
+        TankFireEvent event = new TankFireEvent(this);
+        for(TankFireObserver o : fireObservers) {
+            o.actionOnFire(event);
+        }
+    }
+
 
 }
