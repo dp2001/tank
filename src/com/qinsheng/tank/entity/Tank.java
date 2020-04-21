@@ -181,7 +181,7 @@ public class Tank extends GameObject {
 
         //敌方坦克的随机开火
         if(this.group == Group.BAD && random.nextInt(100) > 95) {
-            this.fire();
+            new TankFireEvent(this);
         }
         //敌方坦克随机变换方向
         if(this.group == Group.BAD && random.nextInt(100) > 95) {
@@ -228,13 +228,6 @@ public class Tank extends GameObject {
         return HEIGHT;
     }
 
-    private List<TankFireObserver> fireObservers = Arrays.asList(new TankFireHandler());
-    public void handleFireKey() {
-        TankFireEvent event = new TankFireEvent(this);
-        for(TankFireObserver o : fireObservers) {
-            o.actionOnFire(event);
-        }
-    }
 
 
 }
