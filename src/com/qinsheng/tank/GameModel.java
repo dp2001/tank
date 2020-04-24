@@ -9,6 +9,7 @@ import com.qinsheng.tank.list.Group;
 import com.qinsheng.tank.manager.PropertyManager;
 
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,6 +95,46 @@ public class GameModel {
 
     public Tank getMyTank() {
         return myTank;
+    }
+
+    public void save() {
+        File f = new File("tank.data");
+        ObjectOutputStream objectOutputStream = null;
+        try {
+            objectOutputStream = new ObjectOutputStream(new FileOutputStream(f));
+            objectOutputStream.writeObject(myTank);
+            objectOutputStream.writeObject(gameObjects);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if(objectOutputStream != null) {
+                try {
+                    objectOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void load() {
+        File f = new File("tank.data");
+        ObjectInputStream objectInputStream = null;
+        try {
+            objectInputStream = new ObjectInputStream(new FileInputStream(f));
+            myTank = (Tank)objectInputStream.readObject();
+            gameObjects = (List)objectInputStream.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if(objectInputStream != null) {
+                try {
+                    objectInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 }

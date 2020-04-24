@@ -6,6 +6,10 @@ import com.qinsheng.tank.manager.PropertyManager;
 import com.qinsheng.tank.observer.TankFireEvent;
 import com.qinsheng.tank.observer.TankFireHandler;
 import com.qinsheng.tank.observer.TankFireObserver;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.List;
 
 import java.awt.*;
@@ -86,6 +90,12 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_DOWN:
                     bD = true;
+                    break;
+                case KeyEvent.VK_S:
+                    GameModel.getInstance().save();
+                    break;
+                case KeyEvent.VK_L:
+                    GameModel.getInstance().load();
                     break;
 
                 default:
